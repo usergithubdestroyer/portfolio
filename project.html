@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - Computer Engineering Student</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* basic resets */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background: #fff; }
+
+        /* header nav */
+        header { background: linear-gradient(135deg, #4facfe, #00f2fe); color:white; padding:1rem 0; position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
+        .nav-container { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:0 1.5rem; }
+        .logo { font-size:1.4rem; font-weight:bold; }
+        nav ul { list-style:none; display:flex; gap:1.5rem; }
+        nav a { color:white; text-decoration:none; font-weight:500; position:relative; transition:color 0.3s; }
+        nav a:hover { color:#fffacd; }
+        nav a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#fffacd; transition:width 0.3s; }
+        nav a:hover::after { width:100%; }
+
+        main { max-width:1100px; margin:0 auto; padding:1.5rem; }
+
+        /* About Section */
+        .page-1 { display:flex; gap:2rem; margin:3rem 0; animation:fadeIn 1.2s ease; }
+        .about-text { flex:1; }
+        .about-text h1 { font-size:2.5rem; color:#4facfe; margin-bottom:1rem; }
+        .about-text p { margin-bottom:1rem; color:#555; }
+        .cta-button { display:inline-block; background:linear-gradient(135deg,#4facfe,#00f2fe); color:white; padding:0.7rem 1.5rem; border-radius:30px; text-decoration:none; font-weight:bold; margin-top:1rem; transition:transform 0.3s; }
+        .cta-button:hover { transform:scale(1.05); }
+
+        .about-image { flex:1; text-align:center; }
+        .avatar { width:200px; height:200px; border-radius:50%; overflow:hidden; box-shadow:0 8px 20px rgba(79,172,254,0.3); animation:bounce 2s ease-in-out infinite; display:inline-block; }
+        .avatar img { width:100%; height:100%; object-fit:cover; }
+        @keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);} }
+
+        /* Skills */
+        .section h2 { font-size:1.8rem; margin-bottom:1.5rem; color:#333; border-bottom:2px solid #4facfe; padding-bottom:0.4rem; display:inline-block; }
+        .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem; }
+        .skill-card { background:#f8f8f8; padding:1rem; border-radius:8px; text-align:center; box-shadow:0 3px 10px rgba(0,0,0,0.05); transition:transform 0.3s; }
+        .skill-card:hover { transform:translateY(-5px); }
+        .skill-icon { font-size:2rem; margin-bottom:0.5rem; }
+        .skill-name { font-weight:bold; font-size:1rem; }
+        .skill-level { font-size:0.8rem; color:#777; }
+
+        /* Projects */
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+        .project-card { background:#f8f8f8; border-radius:8px; overflow:hidden; box-shadow:0 3px 10px rgba(0,0,0,0.05); transition:transform 0.3s, box-shadow 0.3s; cursor:pointer; }
+        .project-card:hover { transform:translateY(-10px); box-shadow:0 12px 30px rgba(0,0,0,0.3); }
+        .project-image { width:100%; height:180px; display:flex; align-items:center; justify-content:center; }
+        .project-image div { width:100px; height:100px; border-radius:50%; display:flex; justify-content:center; align-items:center; box-shadow:0 8px 25px rgba(0,0,0,0.2); transition: transform 0.3s, box-shadow 0.3s; }
+        .project-image div:hover { transform:scale(1.15); box-shadow:0 12px 25px rgba(0,0,0,0.35); }
+        .project-info { padding:1rem; }
+        .project-info h3 { font-size:1.2rem; margin-bottom:0.5rem; color:#333; }
+        .project-info p { font-size:0.9rem; margin-bottom:0.8rem; color:#666; }
+        .project-tags { display:flex; gap:0.4rem; flex-wrap:wrap; }
+        .tag { background:#e0e0e0; padding:0.2rem 0.6rem; border-radius:15px; font-size:0.8rem; color:#4facfe; }
+
+        /* Contact */
+        .contact-section { background:linear-gradient(135deg,#ff6ec7,#4facfe); color:white; padding:3rem 1rem; border-radius:12px; text-align:center; margin:2.5rem 0; }
+        .contact-info { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:2rem; }
+        .contact-item { display:flex; align-items:center; gap:0.5rem; font-size:1.2rem; }
+        .contact-item a { color:white; text-decoration:none; font-weight:bold; transition:color 0.3s; }
+        .contact-item a:hover { color:#ffeb3b; }
+        .contact-button { display:inline-block; padding:0.8rem 2rem; border-radius:50px; background:white; color:#4facfe; font-weight:bold; text-decoration:none; transition:transform 0.3s, box-shadow 0.3s; }
+        .contact-button:hover { transform:scale(1.1); box-shadow:0 8px 20px rgba(0,0,0,0.3); }
+
+        /* Footer */
+        footer { background:#333; color:white; text-align:center; padding:1.5rem; margin-top:2rem; }
+
+        /* Animations */
+        @keyframes fadeIn { from{opacity:0; transform:translateY(15px);} to{opacity:1; transform:translateY(0);} }
+        .fade-in { animation:fadeIn 0.8s ease; }
+
+        /* responsive */
+        @media (max-width:768px) { .page-1 { flex-direction:column; gap:1.5rem; } .about-text h1{font-size:2rem;} .avatar{width:160px;height:160px;} .skills-grid{grid-template-columns:repeat(2,1fr);} .projects-grid{grid-template-columns:1fr;} }
+        @media (max-width:480px){ nav ul{gap:1rem;} .skills-grid{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="nav-container">
+        <div class="logo">DE$TROYER</div>
+        <nav>
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- About Section -->
+    <section class="page-1" id="about">
+        <div class="about-text fade-in">
+            <h1>Hi, I’m Sujal</h1>
+            <p>I’m a Computer Engineering student. I like coding and web stuff.</p>
+            <p>Learning C/C++, HTML, CSS, JS and PHP as of now.</p>
+            <a href="#projects" class="cta-button">Check my projects</a>
+        </div>
+        <div class="about-image fade-in">
+            <!-- just my pic lol -->
+            <div class="avatar">
+                <img src="zzz.jpg" alt="Sujal's Photo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <h2>Skills I Have</h2>
+        <div class="skills-grid">
+            <!-- HTML -->
+            <div class="skill-card fade-in">
+                <div class="skill-icon"><i class="fa-brands fa-html5"></i></div>
+                <div class="skill-name">HTML</div>
+                <div class="skill-level">Mid-Level</div>
+            </div>
+            <!-- CSS -->
+            <div class="skill-card fade-in">
+                <div class="skill-icon"><i class="fa-brands fa-css3-alt"></i></div>
+                <div class="skill-name">CSS</div>
+                <div class="skill-level">Mid-Level</div>
+            </div>
+            <!-- C -->
+            <div class="skill-card fade-in">
+                <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+                <div class="skill-name">C</div>
+                <div class="skill-level">Mid-Level</div>
+            </div>
+            <!-- C++ -->
+            <div class="skill-card fade-in">
+                <div class="skill-icon"><i class="fa-solid fa-terminal"></i></div>
+                <div class="skill-name">C++</div>
+                <div class="skill-level">Mid-Level</div>
+            </div>
+            <!-- JS -->
+            <div class="skill-card fade-in">
+                <div class="skill-icon"><i class="fa-brands fa-js"></i></div>
+                <div class="skill-name">JavaScript</div>
+                <div class="skill-level">Starter</div>
+            </div>
+            <!-- PHP -->
+            <div class="skill-card fade-in">
+                <div class="skill-icon"><i class="fa-brands fa-php"></i></div>
+                <div class="skill-name">PHP</div>
+                <div class="skill-level">Starter</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <h2>Projects I've Done</h2>
+        <div class="projects-grid">
+            <!-- Calculator -->
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div style="background:conic-gradient(#4facfe,#00f2fe,#ff6ec7,#f7df1e);">
+                        <i class="fa-solid fa-calculator" style="font-size:3rem;color:white;"></i>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Calculator App</h3>
+                    <p>Simple C++ command-line calculator with some basic error checks.</p>
+                    <div class="project-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">CLI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Site -->
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div style="background:conic-gradient(#f7df1e,#f0db4f,#ff9f1c,#4facfe);">
+                        <i class="fa-solid fa-globe" style="font-size:3rem;color:#333;"></i>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Personal Site</h3>
+                    <p>This portfolio site (HTML & CSS). Works on phones too.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student System -->
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div style="background:conic-gradient(#6e5494,#9b59b6,#ff6ec7,#4facfe);">
+                        <i class="fa-solid fa-database" style="font-size:3rem;color:white;"></i>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Student System</h3>
+                    <p>Manage students using PHP & MySQL. Simple interface.</p>
+                    <div class="project-tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Web App</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2>Reach Out</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:sujalduwal9841@gmail.com">sujalduwal9841@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <a href="tel:+9812345678">9812345678</a>
+            </div>
+        </div>
+        <a href="mailto:sujalduwal9841@gmail.com" class="contact-button">Send Message</a>
+    </section>
+</main>
+
+<footer>
+    <!-- lol footer -->
+    <p>&copy; 2025 - Made by a Computer Engineering Student</p>
+</footer>
+
+</body>
+</html>
